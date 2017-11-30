@@ -62,21 +62,27 @@ def validate_signup():
     else:
         username = username
 
+    if is_empty(verify_password):
+        verify_password_error = "You must verify your password."
+        verify_password = ""
+    
     if is_empty(password):
         password_error = "You must enter a password."
         password = ""
 
-    elif not password_match(password, verify_password):
-        password_error = "The entries for password and verify password must be identical."
-        verify_password_error = "The entries for password and verify password must be identical."
-        password = ""
-        verify_password = ""
-    else:
+    elif not valid_entry(password):
         password = password
         verify_password = verify_password
-        if not valid_entry(password):
-            password_error = "Password must be between 3 and 20 characters and not contain a space."
+        password_error = "Password must be between 3 and 20 characters and not contain a space."
+        password = ""
+    
+    else:
+        if not password_match(password, verify_password):
+            password_error = "The entries for password and verify password must be identical."
+            verify_password_error = "The entries for password and verify password must be identical."
             password = ""
+            verify_password = ""
+    
 
     if not is_empty(email) and (not valid_email(email) or not valid_entry(email)):
         email_error = "A valid email address must have a single '@', a single '.', contain no spaces, and be between 3 and 20 characters."
