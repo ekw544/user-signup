@@ -58,7 +58,7 @@ def validate_signup():
         username_error = "You must enter a username."
     elif not valid_entry(username):
         username_error = "Username must be between 3 and 20 characters and not contain a space."
-        username = ""
+        username = username
     else:
         username = username
 
@@ -86,7 +86,7 @@ def validate_signup():
 
     if not is_empty(email) and (not valid_email(email) or not valid_entry(email)):
         email_error = "A valid email address must have a single '@', a single '.', contain no spaces, and be between 3 and 20 characters."
-        email = ""
+        email = email
 
     if username_error == "" and password_error == "" and verify_password_error == "" and email_error == "":
         return redirect("/valid-signup?username={0}".format(username))
